@@ -6,17 +6,17 @@
       "Properties": {
         "SecurityGroups": [
           {
-            "Ref": "ELB_SG"
+            "Ref": "ELBSG"
           }
         ]
       }
     },
-    "ASG_CONFIG": {
+    "ASGCONFIG": {
       "Type": "AWS::AutoScaling::LaunchConfiguration",
       "Properties": {
         "SecurityGroups": [
           {
-            "Ref": "ASG_SG"
+            "Ref": "ASGSG"
           }
         ]
       }
@@ -30,26 +30,30 @@
           }
         ],
         "LaunchConfigurationName": {
-          "Ref": "ASG_CONFIG"
+          "Ref": "ASGCONFIG"
         }
       }
     },
-    "ASG_SG": {
+    "ASGSG": {
       "Type": "AWS::EC2::SecurityGroup",
-      "Properties": {}
+      "Properties": {
+        "GroupDescription": "Security Group Externo"
+      }
     },
-    "ELB_SG": {
+    "ELBSG": {
       "Type": "AWS::EC2::SecurityGroup",
-      "Properties": {}
+      "Properties": {
+        "GroupDescription": "Security Group Interno"
+      }
     },
-    "ASG_INGRESS": {
+    "ASGINGRESS": {
       "Type": "AWS::EC2::SecurityGroupIngress",
       "Properties": {
         "GroupId": {
-          "Ref": "ASG_SG"
+          "Ref": "ASGSG"
         },
         "SourceSecurityGroupId": {
-          "Ref": "ELB_SG"
+          "Ref": "ELBSG"
         }
       }
     }

@@ -16,7 +16,11 @@ Requisitos
     ```
 - Un usuario de IAM en la cuenta de AWS (el cuál a partir de ahora llamaremos **cloudformer**) con los siguientes privilegios:
   - Los mismos privilegios del usuario **ami-builder** los cuales se listan en el proyecto **oas-condor-estudiantes-ami**.
-  - Además la posibilidad de manipular "stacks" de CloudFormation, Elastic Load Balancers ELBs y AutoScaling Groups ASGs. Y durante pruebas enviar correo mediante AWS SES.
+  - Poder manipular "stacks" de CloudFormation
+  - Manipular Elastic Load Balancers (ELB)
+  - Manipular AutoScaling Groups (ASG)
+  - Durante pruebas enviar correo mediante AWS SES.
+  - Permiso de lectura a otros recursos (Security Groups, etc)
 
     ```
     {
@@ -44,6 +48,12 @@ Requisitos
           "Sid": "Stmt1465787155820",
           "Effect":"Allow",
           "Action":"ses:SendRawEmail",
+          "Resource":"*"
+        },
+        {
+          "Sid": "Stmt1465787155821",
+          "Effect":"Allow",
+          "Action":"ec2:DescribeSecurityGroups",
           "Resource":"*"
         }
       ]
