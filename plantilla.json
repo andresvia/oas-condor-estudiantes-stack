@@ -15,7 +15,8 @@
              "LoadBalancerPort" : "80",
              "Protocol" : "HTTP"
           }
-        ]
+        ],
+        "Subnets": [ "subnet-03ac6375", "subnet-f712f4af" ]
       }
     },
     "ASGCONFIG": {
@@ -26,7 +27,8 @@
             "Ref": "ASGSG"
           }
         ],
-        "ImageId": "ami-f4de1b99"
+        "ImageId": "ami-f4de1b99",
+        "InstanceType": "t2.micro"
       }
     },
     "ASG": {
@@ -62,7 +64,8 @@
         },
         "SourceSecurityGroupId": {
           "Ref": "ELBSG"
-        }
+        },
+        "IpProtocol": "80"
       }
     }
   }
