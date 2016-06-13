@@ -8,6 +8,13 @@
           {
             "Ref": "ELBSG"
           }
+        ],
+        "Listeners": [
+          {
+             "InstancePort" : "80",
+             "LoadBalancerPort" : "80",
+             "Protocol" : "HTTP"
+          }
         ]
       }
     },
@@ -18,7 +25,8 @@
           {
             "Ref": "ASGSG"
           }
-        ]
+        ],
+        "ImageId": "ami-f4de1b99"
       }
     },
     "ASG": {

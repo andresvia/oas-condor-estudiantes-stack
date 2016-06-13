@@ -86,3 +86,4 @@ Para pasar a producción se requiere:
 
 - Credenciales SMTP al servicio AWS SES creado a partir de https://console.aws.amazon.com/ses/home?region=us-east-1#smtp-settings:
   - La validación de dominios de SES no hace parte del **scope** de este proyecto.
+- Agregar a ElasticLoadBalancing el certificado SSL validado para el dominio a usar, documentación: http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_server-certs.html, una vez el certificado haya sido subido, este ELB puede borrarse, la plantilla de CloudFormation creará un nuevo ELB utilizando este certificado.
