@@ -1,0 +1,57 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "ELB": {
+      "Type": "AWS::ElasticLoadBalancing::LoadBalancer",
+      "Properties": {
+        "SecurityGroups": [
+          {
+            "Ref": "ELB_SG"
+          }
+        ]
+      }
+    },
+    "ASG_CONFIG": {
+      "Type": "AWS::AutoScaling::LaunchConfiguration",
+      "Properties": {
+        "SecurityGroups": [
+          {
+            "Ref": "ASG_SG"
+          }
+        ]
+      }
+    },
+    "ASG": {
+      "Type": "AWS::AutoScaling::AutoScalingGroup",
+      "Properties": {
+        "LoadBalancerNames": [
+          {
+            "Ref": "ELB"
+          }
+        ],
+        "LaunchConfigurationName": {
+          "Ref": "ASG_CONFIG"
+        }
+      }
+    },
+    "ASG_SG": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {}
+    },
+    "ELB_SG": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {}
+    },
+    "ASG_INGRESS": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "ASG_SG"
+        },
+        "SourceSecurityGroupId": {
+          "Ref": "ELB_SG"
+        }
+      }
+    }
+  }
+}
