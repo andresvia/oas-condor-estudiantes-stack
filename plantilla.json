@@ -5,9 +5,7 @@
       "Type": "AWS::ElasticLoadBalancing::LoadBalancer",
       "Properties": {
         "SecurityGroups": [
-          {
-            "Ref": "ELBSG"
-          }
+          { "Fn::GetAtt" : [ "ELBSG" , "GroupId" ] }
         ],
         "Listeners": [
           {
@@ -23,9 +21,7 @@
       "Type": "AWS::AutoScaling::LaunchConfiguration",
       "Properties": {
         "SecurityGroups": [
-          {
-            "Ref": "ASGSG"
-          }
+          { "Fn::GetAtt" : [ "ASGSG" , "GroupId" ] }
         ],
         "ImageId": "ami-f4de1b99",
         "InstanceType": "t2.micro"
@@ -41,29 +37,32 @@
         ],
         "LaunchConfigurationName": {
           "Ref": "ASGCONFIG"
-        }
+        },
+        "MinSize": "0",
+        "MaxSize": "0",
+        "VPCZoneIdentifier": [ "subnet-03ac6375", "subnet-f712f4af" ]
       }
     },
     "ASGSG": {
       "Type": "AWS::EC2::SecurityGroup",
       "Properties": {
-        "GroupDescription": "Security Group Externo"
+        "GroupDescription": "Security Group Interno"
       }
     },
     "ELBSG": {
       "Type": "AWS::EC2::SecurityGroup",
       "Properties": {
-        "GroupDescription": "Security Group Interno"
+        "GroupDescription": "Security Group Externo"
       }
     },
     "ASGINGRESS": {
       "Type": "AWS::EC2::SecurityGroupIngress",
       "Properties": {
         "GroupId": {
-          "Ref": "ASGSG"
+          "Fn::GetAtt" : [ "ASGSG" , "GroupId" ]
         },
         "SourceSecurityGroupId": {
-          "Ref": "ELBSG"
+          "Fn::GetAtt" : [ "ELBSG" , "GroupId" ]
         },
         "IpProtocol": "80"
       }
