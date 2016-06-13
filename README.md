@@ -4,7 +4,7 @@ Requisitos
 - Un bucket de S3 (el cuál a partir de ahora llamaremos **oas-repo**) con el siguiente contenido.
 
   - Un archivo en la ruta: `files/common/etc/ssh/ssh_known_hosts`
-    El contenido de este archivo **debe** ser de la salida del comando: `ssh-keyscan -t rsa github.com`
+    El contenido de este archivo **debe** contener de la salida del comando: `ssh-keyscan -t rsa github.com` el archivo puede contener otras llaves públicas sin embargo para este proyecto unicamente se necesita la de github.com.
 
     Esto permitirá a las instancias iniciadas en el stack identificar la identidad del servidor SSH de Github sin compromoter la seguridad. Github internamente rota sus llaves si ellos consideran que se han visto comprometidas. Por lo cuál este valor **no** debe estar quemado en el código. Ni tampoco debe generarse desatendidamente, pues **debe** verificarse que al recibir la llave esta tiene la [firma de los servidores de Github](https://help.github.com/articles/what-are-github-s-ssh-key-fingerprints/)
 
