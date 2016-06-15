@@ -55,6 +55,12 @@ Requisitos
           "Effect":"Allow",
           "Action":"ec2:DescribeSecurityGroups",
           "Resource":"*"
+        },
+        {
+          "Sid": "Stmt1465787155822",
+          "Effect":"Allow",
+          "Action":"ec2:RevokeSecurityGroupIngress",
+          "Resource":"*"
         }
       ]
     }

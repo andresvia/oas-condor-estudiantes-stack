@@ -1,0 +1,20 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "Configuracion": {
+      "Type": "AWS::AutoScaling::LaunchConfiguration",
+      "Properties": {
+        "SecurityGroups": [
+          {
+            "Fn::GetAtt": [
+              "SeguridadInterna",
+              "GroupId"
+            ]
+          }
+        ],
+        "ImageId": "ami-f4de1b99",
+        "InstanceType": "t2.micro"
+      }
+    }
+  }
+}
