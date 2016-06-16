@@ -1,3 +1,27 @@
+condor-estudiantes-stack
+========================
+
+ - Para construir localmente ejecute `./local`, necesitará:
+   - [Docker](https://www.docker.com/)
+   - [Drone](http://readme.drone.io/devs/cli/)
+ - Para construir automáticamente activar el proyecto en Drone
+   - Generar los secretos necesarios según el archivo `secrets_example.yml` de la siguiente manera:
+     ```
+     cp secrets_example.yml .drone.sec.yml
+     # editar el archivo .drone.sec.yml
+     # gedit .drone.sec.yml
+     # vim .drone.sec.yml
+     # emacs .drone.sec.yml
+     # etc...
+     drone secure --repo plataforma/condor-estudiantes-stack --checksum
+     rm .drone.sec.yml
+     git add .drone.sec
+     git commit -m "configurando secretos"
+     git push origin master
+     ```
+
+Actualmente este repositorio genera stacks de AWS CloudFormation.
+
 Requisitos
 ==========
 
@@ -15,7 +39,7 @@ Requisitos
     ssh-keygen -lf /tmp/github_known_host
     ```
 - Un usuario de IAM en la cuenta de AWS (el cuál a partir de ahora llamaremos **cloudformer**) con los siguientes privilegios:
-  - Los mismos privilegios del usuario **ami-builder** los cuales se listan en el proyecto **oas-condor-estudiantes-ami**.
+  - Los mismos privilegios del usuario **ami-builder** los cuales se listan en el proyecto **condor-estudiantes-image**.
   - Poder manipular "stacks" de CloudFormation
   - Manipular Elastic Load Balancers (ELB)
   - Manipular AutoScaling Groups (ASG)
@@ -65,8 +89,52 @@ Requisitos
       ]
     }
     ```
+
+  - Permiso de escritura a la "ruta" `/terraform` dentro del bucket **oas-repo** (reemplazar `<<nombre bucket>>` por el nombre que se haya escogido.
+  ```
+  {
+      "Version": "2012-10-17",
+      "Statement": [
+          {
+              "Sid": "Stmt1465487922400",
+              "Action": [
+                  "s3:Get*",
+                  "s3:List*"
+              ],
+              "Effect": "Allow",
+              "Resource": "arn:aws:s3:::<<nombre bucket>>"
+          },
+          {
+              "Sid": "Stmt1465487950391",
+              "Action": [
+                  "s3:Get*",
+                  "s3:List*"
+              ],
+              "Effect": "Allow",
+              "Resource": "arn:aws:s3:::<<nombre bucket>>/*"
+          },
+          {
+              "Sid": "Stmt1465487950392",
+              "Action": [
+                  "s3:*"
+              ],
+              "Effect": "Allow",
+              "Resource": "arn:aws:s3:::<<nombre bucket>>/terraform"
+          },
+          {
+              "Sid": "Stmt1465487950393",
+              "Action": [
+                  "s3:*"
+              ],
+              "Effect": "Allow",
+              "Resource": "arn:aws:s3:::<<nombre bucket>>/terraform/*"
+          }
+      ]
+  }
+  ```
+
 - Un rol de IAM en la cuenta (el cuál **debe** llamarse **oas-condor-role**) basado en "Amazon EC2 AWS Service Roles". Este rol debe tener los siguientes privilegios.
-  - Los mismos privilegios del rol **oas-ami-builder-role** los cuales se listan en el proyecto **oas-condor-estudiantes-ami**.
+  - Los mismos privilegios del rol **oas-ami-builder-role** los cuales se listan en el proyecto **condor-estudiantes-image**.
   - Además la posibilidad de terminar instancias de EC2, esto le permitirá a la instancia terminarse a si misma.
 
      ```

@@ -1,0 +1,25 @@
+build:
+  ami:
+    image: 192.168.12.212:5000/plataforma/condor-estudiantes-image:master-3e96080-2
+    commands:
+      - rm -rf target
+      - mkdir -pv target
+      - cp -rv /artifacts/* target/
+      - cp -fv plantillas/*.tf .
+      - cp -fv target/*.tf .
+
+deploy:
+  terraform:
+    remote:
+      backend: S3
+      config:
+        bucket: $$OAS_REPO
+        key: terraform/condor-estudiantes-stacks.$$BRANCH.tfstate
+        region: us-east-1
+        access_key: $$AWS_ACCESS_KEY_ID
+        secret_key: $$AWS_SECRET_ACCESS_KEY
+    vars:
+      aws_region: us-east-1
+      aws_secret_key: $$AWS_SECRET_ACCESS_KEY
+      aws_access_key: $$AWS_ACCESS_KEY_ID
+      branch: $$BRANCH
