@@ -6,19 +6,20 @@ condor-estudiantes-stack
    - [Drone](http://readme.drone.io/devs/cli/)
  - Para construir automáticamente activar el proyecto en Drone
    - Generar los secretos necesarios según el archivo `secrets_example.yml` de la siguiente manera:
-     ```
-     cp secrets_example.yml .drone.sec.yml
-     # editar el archivo .drone.sec.yml
-     # gedit .drone.sec.yml
-     # vim .drone.sec.yml
-     # emacs .drone.sec.yml
-     # etc...
-     drone secure --repo plataforma/condor-estudiantes-stack --checksum
-     rm .drone.sec.yml
-     git add .drone.sec
-     git commit -m "configurando secretos"
-     git push origin master
-     ```
+
+   ```
+   cp secrets_example.yml .drone.sec.yml
+   # editar el archivo .drone.sec.yml
+   # gedit .drone.sec.yml
+   # vim .drone.sec.yml
+   # emacs .drone.sec.yml
+   # etc...
+   drone secure --repo plataforma/condor-estudiantes-stack --checksum
+   rm .drone.sec.yml
+   git add .drone.sec
+   git commit -m "configurando secretos"
+   git push origin master
+   ```
 
 Actualmente este repositorio genera stacks de AWS CloudFormation.
 
@@ -38,13 +39,17 @@ Requisitos
     ssh-keyscan -t rsa github.com > /tmp/github_known_host
     ssh-keygen -lf /tmp/github_known_host
     ```
+
+    Luego el contenido del archivo `/tmp/github_known_host` debe estar en el archivo de S3.
+
 - Un usuario de IAM en la cuenta de AWS (el cuál a partir de ahora llamaremos **cloudformer**) con los siguientes privilegios:
-  - Los mismos privilegios del usuario **ami-builder** los cuales se listan en el proyecto **condor-estudiantes-image**.
+  - Los mismos privilegios del usuario **ami-builder** los cuales se listan en el proyecto **condor-estudiantes-image** (antes llamado: oas-condor-estudiantes-ami).
   - Poder manipular "stacks" de CloudFormation
   - Manipular Elastic Load Balancers (ELB)
   - Manipular AutoScaling Groups (ASG)
   - Durante pruebas enviar correo mediante AWS SES.
-  - Permiso de lectura a otros recursos (Security Groups, etc)
+  - Permiso de lectura a otros recursos (Security Groups)
+  - Permiso de escritura a otras recursos (Security Group Ingress)
 
     ```
     {
@@ -134,7 +139,7 @@ Requisitos
   ```
 
 - Un rol de IAM en la cuenta (el cuál **debe** llamarse **oas-condor-role**) basado en "Amazon EC2 AWS Service Roles". Este rol debe tener los siguientes privilegios.
-  - Los mismos privilegios del rol **oas-ami-builder-role** los cuales se listan en el proyecto **condor-estudiantes-image**.
+  - Los mismos privilegios del rol **oas-ami-builder-role** los cuales se listan en el proyecto **condor-estudiantes-image** (antes llamado oas-condor-estudiantes-ami).
   - Además la posibilidad de terminar instancias de EC2, esto le permitirá a la instancia terminarse a si misma.
 
      ```
