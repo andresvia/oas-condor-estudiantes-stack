@@ -96,6 +96,7 @@ Requisitos
     ```
 
   - Permiso de escritura a la "ruta" `/terraform` dentro del bucket **oas-repo** (reemplazar `<<nombre bucket>>` por el nombre que se haya escogido.
+
   ```
   {
       "Version": "2012-10-17",
