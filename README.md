@@ -97,47 +97,47 @@ Requisitos
 
   - Permiso de escritura a la "ruta" `/terraform` dentro del bucket **oas-repo** (reemplazar `<<nombre bucket>>` por el nombre que se haya escogido.
 
-  ```
-  {
-      "Version": "2012-10-17",
-      "Statement": [
-          {
-              "Sid": "Stmt1465487922400",
-              "Action": [
-                  "s3:Get*",
-                  "s3:List*"
-              ],
-              "Effect": "Allow",
-              "Resource": "arn:aws:s3:::<<nombre bucket>>"
-          },
-          {
-              "Sid": "Stmt1465487950391",
-              "Action": [
-                  "s3:Get*",
-                  "s3:List*"
-              ],
-              "Effect": "Allow",
-              "Resource": "arn:aws:s3:::<<nombre bucket>>/*"
-          },
-          {
-              "Sid": "Stmt1465487950392",
-              "Action": [
-                  "s3:*"
-              ],
-              "Effect": "Allow",
-              "Resource": "arn:aws:s3:::<<nombre bucket>>/terraform"
-          },
-          {
-              "Sid": "Stmt1465487950393",
-              "Action": [
-                  "s3:*"
-              ],
-              "Effect": "Allow",
-              "Resource": "arn:aws:s3:::<<nombre bucket>>/terraform/*"
-          }
-      ]
-  }
-  ```
+    ```
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Sid": "Stmt1465487922400",
+                "Action": [
+                    "s3:Get*",
+                    "s3:List*"
+                ],
+                "Effect": "Allow",
+                "Resource": "arn:aws:s3:::<<nombre bucket>>"
+            },
+            {
+                "Sid": "Stmt1465487950391",
+                "Action": [
+                    "s3:Get*",
+                    "s3:List*"
+                ],
+                "Effect": "Allow",
+                "Resource": "arn:aws:s3:::<<nombre bucket>>/*"
+            },
+            {
+                "Sid": "Stmt1465487950392",
+                "Action": [
+                    "s3:*"
+                ],
+                "Effect": "Allow",
+                "Resource": "arn:aws:s3:::<<nombre bucket>>/terraform"
+            },
+            {
+                "Sid": "Stmt1465487950393",
+                "Action": [
+                    "s3:*"
+                ],
+                "Effect": "Allow",
+                "Resource": "arn:aws:s3:::<<nombre bucket>>/terraform/*"
+            }
+        ]
+    }
+    ```
 
 - Un rol de IAM en la cuenta (el cuál **debe** llamarse **oas-condor-role**) basado en "Amazon EC2 AWS Service Roles". Este rol debe tener los siguientes privilegios.
   - Los mismos privilegios del rol **oas-ami-builder-role** los cuales se listan en el proyecto **condor-estudiantes-image** (antes llamado oas-condor-estudiantes-ami).
