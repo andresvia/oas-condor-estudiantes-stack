@@ -104,20 +104,10 @@ Requisitos
             {
                 "Sid": "Stmt1465487922400",
                 "Action": [
-                    "s3:Get*",
                     "s3:List*"
                 ],
                 "Effect": "Allow",
                 "Resource": "arn:aws:s3:::<<nombre bucket>>"
-            },
-            {
-                "Sid": "Stmt1465487950391",
-                "Action": [
-                    "s3:Get*",
-                    "s3:List*"
-                ],
-                "Effect": "Allow",
-                "Resource": "arn:aws:s3:::<<nombre bucket>>/*"
             },
             {
                 "Sid": "Stmt1465487950392",
@@ -143,21 +133,21 @@ Requisitos
   - Los mismos privilegios del rol **oas-ami-builder-role** los cuales se listan en el proyecto **condor-estudiantes-image** (antes llamado oas-condor-estudiantes-ami).
   - Además la posibilidad de terminar instancias de EC2, esto le permitirá a la instancia terminarse a si misma.
 
-     ```
-     {
-       "Version": "2012-10-17",
-       "Statement": [
-         {
-           "Sid": "Stmt1465769105189",
-           "Action": [
-             "ec2:TerminateInstances"
-           ],
-           "Effect": "Allow",
-           "Resource": "*"
-         }
-       ]
-     }
-     ```
+    ```
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "Stmt1465769105189",
+          "Action": [
+            "ec2:TerminateInstances"
+          ],
+          "Effect": "Allow",
+          "Resource": "*"
+        }
+      ]
+    }
+    ```
 
 Paso a producción
 -----------------
