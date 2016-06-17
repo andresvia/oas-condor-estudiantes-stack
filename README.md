@@ -95,7 +95,7 @@ Requisitos
     }
     ```
 
-  - Permiso de escritura a la "ruta" `/terraform` dentro del bucket **oas-repo** (reemplazar `<<nombre bucket>>` por el nombre que se haya escogido.
+  - Permiso de escritura a la "ruta" `/terraform` dentro del bucket **oas-repo** (reemplazar `<<nombre bucket>>` por el nombre que se haya escogido).
 
     ```
     {
