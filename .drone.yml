@@ -1,15 +1,15 @@
 build:
   ami:
-    image: 192.168.12.212:5000/plataforma/condor-estudiantes-image:master-3e96080-2
+    image: localhost:5000/plataforma/condor-estudiantes-image:master-23300b3-0
     commands:
       - rm -rf target
       - mkdir -pv target
       - cp -rv /artifacts/* target/
-      - cp -fv plantillas/*.tf .
-      - cp -fv target/*.tf .
+      - cp -fv plantillas/* target/
 
 deploy:
   terraform:
+    # plan: true
     remote:
       backend: S3
       config:
@@ -23,3 +23,9 @@ deploy:
       aws_secret_key: $$AWS_SECRET_ACCESS_KEY
       aws_access_key: $$AWS_ACCESS_KEY_ID
       branch: $$BRANCH
+      commit: "$${COMMIT:0:7}"
+      build_number: "$$BUILD_NUMBER"
+      instance_type: t2.micro
+      subnet_1: subnet-f712f4af
+      subnet_2: subnet-b3eafa98
+    root_dir: target

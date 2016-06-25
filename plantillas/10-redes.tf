@@ -65,6 +65,14 @@ resource "aws_cloudformation_stack" "redes" {
           "IpProtocol": "TCP"
         }
       }
+    },
+    "Outputs": {
+      "SeguridadInternaGroupId": {
+        "Value": {"Fn::GetAtt": ["SeguridadInterna", "GroupId"]}
+      },
+      "SeguridadBalanceadorGroupId": {
+        "Value": {"Fn::GetAtt": ["SeguridadBalanceador", "GroupId"]}
+      }
     }
   }
 STACK
